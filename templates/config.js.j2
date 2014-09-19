@@ -1,0 +1,40 @@
+module.exports = {
+        host_url: "{{ oauthd_host_url }}",              // mounted on this url
+        base: "{{ oauthd_base }}",                                                              // add a base url path. e.g: "/auth"
+        base_api: "{{ oauthd_base_api }}",                                               // api base path
+        port: 6284,
+        // bind: "127.0.0.1",                                   // bind to an ip
+
+        debug: false,                                                   // add stack trace & infos in errors
+
+{% if oauthd_enable_ssl %}
+        ssl: {
+                key: '{{ oauthd_ssl_key }}',
+                certificate: '{{ oauthd_certificate }}',
+                ca: '{{ oauthd_ca }}'
+        },
+{% endif %}
+
+        staticsalt: '{{ oauthd_staticsalt }}',
+        publicsalt: '{{ oauthd_publicsalt }}',
+
+        redis: {
+                port: 6379,
+                host: '127.0.0.1',
+                // password: '...my redis password...',
+                // database: ...0~15...
+                // options: {...other options...}
+        },
+
+        plugins: [
+                'server.statistics',
+                'server.admin.auth',
+                'server.request',
+                'server.admin'
+        ]
+}
+if (require('fs').existsSync(__dirname + '/config.local.js')) {
+        var override = require('./config.local.js');
+        for (var i in override)
+                module.exports[i] = override[i];
+}

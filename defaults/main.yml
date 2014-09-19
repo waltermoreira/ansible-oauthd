@@ -1,0 +1,15 @@
+---
+
+# Defaults for oauthd config.js
+
+oauthd_host_url: http://localhost:6284
+oauthd_base: /
+oauthd_base_api: /api
+
+oauthd_enable_ssl: false
+# oauthd_ssl_key: /path/to/key
+# oauthd_certificate: /path/to/crt
+# oauthd_ca: /path/to/ca
+
+oauthd_staticsalt: i m a random string, change me.
+oauthd_publicsalt: i m another random string, change me.

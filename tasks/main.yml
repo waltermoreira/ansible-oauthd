@@ -1,0 +1,48 @@
+---
+
+- name: Install requirements from yum
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - python
+    - curl
+    - nodejs
+    - npm
+    - redis
+  sudo: yes
+
+- name: Install oauthd
+  npm:
+    name: "{{ item }}"
+    state: latest
+    global: yes
+  with_items:
+    - forever
+    - oauthd
+  sudo: yes
+  notify: Ensure oauthd is running
+
+- name: Set global config
+  template:
+    src: config.js.j2
+    dest: /usr/lib/node_modules/oauthd/config.js
+  sudo: yes
+  notify: Ensure oauthd is restarted
+
+- name: Copy local config
+  copy:
+    src: config.local.js
+    dest: /usr/lib/node_modules/oauthd/config.local.js
+  sudo: yes
+  notify: Ensure oauthd is restarted
+
+- name: Install init.d script for oauthd
+  copy:
+    src: oauthd
+    dest: /etc/init.d/oauthd
+    mode: 0755
+  sudo: yes
+  notify:
+    - Ensure oauthd is restarted
+    - Make sure oauthd is started at boot time

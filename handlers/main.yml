@@ -1,0 +1,23 @@
+---
+
+- name: Ensure oauthd is running
+  service:
+    name: oauthd
+    state: started
+  sudo: yes
+
+- name: Ensure oauthd is restarted
+  service:
+    name: oauthd
+    state: restarted
+  sudo: yes
+
+- name: Ensure redis is running
+  service:
+    name: redis
+    state: started
+  sudo: yes
+
+- name: Make sure oauthd is started at boot time
+  command: /sbin/chkconfig oauthd on
+  sudo: yes
