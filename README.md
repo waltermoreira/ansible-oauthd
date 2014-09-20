@@ -1,14 +1,10 @@
-===================
-OAuthd Ansible Role
-===================
+# OAuthd Ansible Role
 
-Requirements
-============
+## Requirements
 
 Centos (6.5+)
 
-Role Variables
-==============
+## Role Variables
 
 See `defaults/main.yml` for the defaults values.
 
