@@ -10,7 +10,7 @@ Centos (6.5+)
 Role Variables
 ==============
 
-See ``oauthd/defaults/main.yml`` for the defaults values.
+See ``defaults/main.yml`` for the defaults values.
 
 - ``oauthd_host_url``: url for the service
 - ``oauthd_base``: base url
